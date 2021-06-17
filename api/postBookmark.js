@@ -1,6 +1,8 @@
+const filler = require("./database/filler");
+
 const postBookmark = async (req, res, Bookmark) => {
   const bookmark = new Bookmark({
-    id: "",
+    id: "666",
     title: req.body.title,
     image:
       "https://www.google.com/s2/favicons?sz=64&domain_url=" + req.body.url,
@@ -9,7 +11,8 @@ const postBookmark = async (req, res, Bookmark) => {
   });
 
   await bookmark.save();
-  res.send();
+  //id adapter for UI dual API compatibility
+  await filler(Bookmark, res);
 };
 
 module.exports = postBookmark;

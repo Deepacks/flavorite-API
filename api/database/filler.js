@@ -1,14 +1,14 @@
-const filler = async (_id, id, image, url, Bookmark) => {
-  if (_id !== id) {
-    await Bookmark.findByIdAndUpdate(_id, {
-      id: _id,
-    });
-  }
-  if (image.length === 0) {
-    await Bookmark.findByIdAndUpdate(_id, {
-      image: "https://www.google.com/s2/favicons?sz=64&domain_url=" + url,
-    });
-  }
+const filler = async (Bookmark, res) => {
+  await Bookmark.find({ id: "666" }, (err, doc) => {
+    if (err) {
+      console.log(err);
+    } else {
+      doc[0].id = doc[0]._id;
+      doc[0].save(() => {
+        res.send();
+      });
+    }
+  });
 };
 
 module.exports = filler;

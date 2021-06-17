@@ -5,11 +5,6 @@ const getBookmarks = async (req, res, Bookmark) => {
     if (err) {
       console.log(err);
     } else {
-      //New bookmarks get their id & image set for UI necessities
-      docs.forEach((doc) => {
-        filler(doc._id, doc.id, doc.image, doc.url, Bookmark);
-      });
-
       res.send(docs);
     }
   });
