@@ -55,6 +55,6 @@ app.get("/api/switch", (req, res) => {
   getSwitch(req, res, Switch);
 });
 
-app.listen(Port, () => {
-  console.log("Server running on port " + Port);
+app.listen(process.env.PORT || Port, () => {
+  console.log("Server running on port " + process.env.PORT);
 });
