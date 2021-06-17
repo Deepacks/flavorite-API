@@ -9,9 +9,7 @@
   "author": "Vladimir",
   "license": "ISC",
   "dependencies": {
-    "chalk": "^4.1.1",
     "express": "^4.17.1",
-    "moment": "^2.29.1",
     "mongoose": "^5.12.13",
     "morgan": "^1.10.0"
   }
