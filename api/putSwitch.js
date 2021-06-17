@@ -3,6 +3,7 @@ const putSwitch = async (req, res, Switch) => {
   await Switch.findByIdAndUpdate(id, {
     python: req.body.python,
   });
+  res.send();
 };
 
 module.exports = putSwitch;
