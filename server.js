@@ -7,6 +7,7 @@ const getBookmarks = require("./api/getBookmarks");
 const postBookmark = require("./api/postBookmark");
 const putBookmark = require("./api/putBookmark");
 const putDescription = require("./api/putDescription");
+const putLike = require("./api/putLike");
 const deleteBookmark = require("./api/deleteBookmark");
 //switch
 const switchModel = require("./DB/switchModel");
@@ -40,6 +41,10 @@ app.put("/bookmarks/update/:id", (req, res) => {
 
 app.put("/bookmarks/description/:id", (req, res) => {
   putDescription(req, res, Bookmark, req.params.id);
+});
+
+app.put("/bookmark/like/:id", (req, res) => {
+  putLike(req, res, Bookmark, req.params.id);
 });
 
 app.delete("/bookmarks/delete/:id", (req, res) => {
