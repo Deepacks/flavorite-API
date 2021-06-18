@@ -8,6 +8,7 @@ const postBookmark = async (req, res, Bookmark) => {
       "https://www.google.com/s2/favicons?sz=64&domain_url=" + req.body.url,
     url: req.body.url,
     description: req.body.description,
+    like: false,
   });
 
   await bookmark.save();
