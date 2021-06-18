@@ -43,7 +43,7 @@ app.put("/bookmarks/description/:id", (req, res) => {
   putDescription(req, res, Bookmark, req.params.id);
 });
 
-app.put("/bookmark/like/:id", (req, res) => {
+app.put("/bookmarks/like/:id", (req, res) => {
   putLike(req, res, Bookmark, req.params.id);
 });
 
