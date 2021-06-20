@@ -27,13 +27,14 @@ const Port = 5000;
 const Bookmark = bookmarkModel();
 const Switch = switchModel();
 
-app.get("/bookmarks", (req, res) => {
-  getBookmarks(req, res, Bookmark);
-});
-
-app.post("/bookmarks", (req, res) => {
-  postBookmark(req, res, Bookmark);
-});
+app
+  .route("/bookmarks")
+  .get((req, res) => {
+    getBookmarks(req, res, Bookmark);
+  })
+  .post((req, res) => {
+    postBookmark(req, res, Bookmark);
+  });
 
 app.put("/bookmarks/update/:id", (req, res) => {
   putBookmark(req, res, Bookmark, req.params.id);
@@ -52,13 +53,14 @@ app.delete("/bookmarks/delete/:id", (req, res) => {
 });
 
 //api switch
-app.put("/api/switch", (req, res) => {
-  putSwitch(req, res, Switch);
-});
-
-app.get("/api/switch", (req, res) => {
-  getSwitch(req, res, Switch);
-});
+app
+  .route("/api/switch")
+  .put((req, res) => {
+    putSwitch(req, res, Switch);
+  })
+  .get((req, res) => {
+    getSwitch(req, res, Switch);
+  });
 
 app.listen(process.env.PORT || Port, () => {
   console.log("Server running on port " + process.env.PORT);
