@@ -1,5 +1,5 @@
 const putBookmark = async (req, res, Bookmark, id) => {
-  if (req.body.title && req.body.description) {
+  if (req.body.title) {
     await Bookmark.findByIdAndUpdate(id, {
       title: req.body.title,
       description: req.body.description,
