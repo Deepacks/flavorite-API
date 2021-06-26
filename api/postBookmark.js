@@ -1,6 +1,8 @@
+const getScreenshot = require("../playwright/getScreenshot");
 const filler = require("./database/filler");
 
 const postBookmark = async (req, res, Bookmark) => {
+  const url = await getScreenshot(req.body.url);
   const bookmark = new Bookmark({
     id: "666",
     title: req.body.title,
@@ -9,6 +11,7 @@ const postBookmark = async (req, res, Bookmark) => {
     url: req.body.url,
     description: req.body.description,
     like: false,
+    preview: url,
   });
 
   await bookmark.save();

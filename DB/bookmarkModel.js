@@ -8,6 +8,7 @@ const bookmarkModel = () => {
     url: String,
     description: String,
     like: Boolean,
+    preview: String,
   };
 
   return mongoose.model("Bookmark", bookmarkSchema);
