@@ -1,14 +1,18 @@
 const express = require("express");
 const morgan = require("morgan");
+const bcrypt = require("bcryptjs");
+//cors
 const allowCORS = require("./cors/allowCORS");
+//db
 const connectDB = require("./DB/connection");
 const bookmarkModel = require("./DB/bookmarkModel");
+const userModel = require("./DB/userModel");
+//api
 const getBookmarks = require("./api/getBookmarks");
 const postBookmark = require("./api/postBookmark");
 const putBookmark = require("./api/putBookmark");
-const putDescription = require("./api/putDescription");
-const putLike = require("./api/putLike");
 const deleteBookmark = require("./api/deleteBookmark");
+//authentication
 //switch
 const switchModel = require("./DB/switchModel");
 const putSwitch = require("./api/putSwitch");
@@ -25,8 +29,13 @@ connectDB();
 const Port = 5000;
 
 const Bookmark = bookmarkModel();
+const User = userModel();
 const Switch = switchModel();
 
+//LOGIN
+app.post("/login", (req, res) => {});
+
+//APP
 app
   .route("/bookmarks")
   .get((req, res) => {
@@ -36,21 +45,14 @@ app
     postBookmark(req, res, Bookmark);
   });
 
-app.put("/bookmarks/update/:id", (req, res) => {
-  putBookmark(req, res, Bookmark, req.params.id);
-});
-
-app.put("/bookmarks/description/:id", (req, res) => {
-  putDescription(req, res, Bookmark, req.params.id);
-});
-
-app.put("/bookmarks/like/:id", (req, res) => {
-  putLike(req, res, Bookmark, req.params.id);
-});
-
-app.delete("/bookmarks/delete/:id", (req, res) => {
-  deleteBookmark(req, res, Bookmark, req.params.id);
-});
+app
+  .route("/bookmarks/:id")
+  .put((req, res) => {
+    putBookmark(req, res, Bookmark, req.params.id);
+  })
+  .delete((req, res) => {
+    deleteBookmark(req, res, Bookmark, req.params.id);
+  });
 
 //api switch
 app
