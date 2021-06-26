@@ -4,11 +4,13 @@ const putBookmark = async (req, res, Bookmark, id) => {
       title: req.body.title,
       description: req.body.description,
     });
+    console.log("card");
   } else if (req.body.description) {
     await Bookmark.findByIdAndUpdate(id, {
       description: req.body.description,
     });
-  } else if (req.body.like) {
+    console.log("description");
+  } else if (req.body.like || req.body.like === false) {
     await Bookmark.findByIdAndUpdate(id, {
       like: req.body.like,
     });
