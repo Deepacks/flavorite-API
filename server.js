@@ -13,6 +13,8 @@ const postBookmark = require("./api/postBookmark");
 const putBookmark = require("./api/putBookmark");
 const deleteBookmark = require("./api/deleteBookmark");
 //authentication
+const register = require("./authentication/register");
+const login = require("./authentication/login");
 //switch
 const switchModel = require("./DB/switchModel");
 const putSwitch = require("./api/putSwitch");
@@ -32,8 +34,14 @@ const Bookmark = bookmarkModel();
 const User = userModel();
 const Switch = switchModel();
 
-//LOGIN
-app.post("/login", (req, res) => {});
+//AUTH
+app.post("/register", (req, res) => {
+  register(req, res, User, bcrypt);
+});
+
+app.post("/login", (req, res) => {
+  login(req, res, User, bcrypt);
+});
 
 //APP
 app
@@ -54,7 +62,7 @@ app
     deleteBookmark(req, res, Bookmark, req.params.id);
   });
 
-//api switch
+//SWITCH
 app
   .route("/api/switch")
   .put((req, res) => {
