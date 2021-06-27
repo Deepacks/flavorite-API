@@ -1,7 +1,7 @@
-const { webkit } = require("playwright");
+const { firefox } = require("playwright");
 
 const getScreenshot = async (url) => {
-  const browser = await webkit.launch();
+  const browser = await firefox.launch();
   const context = await browser.newContext({
     userAgent:
       "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36",
