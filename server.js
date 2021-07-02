@@ -1,49 +1,93 @@
+require("dotenv").config();
 const express = require("express");
 const morgan = require("morgan");
-const bcrypt = require("bcryptjs");
-//cors
+const mongoose = require("mongoose");
+// cors
 const allowCORS = require("./cors/allowCORS");
-//db
+// db
 const connectDB = require("./DB/connection");
 const bookmarkModel = require("./DB/bookmarkModel");
 const userModel = require("./DB/userModel");
-//api
+// authentication
+const session = require("express-session");
+const passportLocalMongoose = require("passport-local-mongoose");
+const passport = require("passport");
+// api
 const getBookmarks = require("./api/getBookmarks");
 const postBookmark = require("./api/postBookmark");
 const putBookmark = require("./api/putBookmark");
 const deleteBookmark = require("./api/deleteBookmark");
-//authentication
-const register = require("./authentication/register");
-const login = require("./authentication/login");
-//switch
+// switch
 const switchModel = require("./DB/switchModel");
 const putSwitch = require("./api/putSwitch");
 const getSwitch = require("./api/getSwitch");
 
 const app = express();
 
+allowCORS(app);
+
 app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-allowCORS(app);
-connectDB();
+app.use(
+  session({
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+//mongoose.set("useFindAndModify", false);
+const URI =
+  "mongodb+srv://dbUser:dbUser@cluster0.66qke.mongodb.net/Flavorite?retryWrites=true&w=majority";
+mongoose
+  .connect(URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(console.log("AWS database connection successful"));
+mongoose.set("useCreateIndex", true);
+
+const userSchema = new mongoose.Schema({
+  username: String,
+  password: String,
+});
+userSchema.plugin(passportLocalMongoose);
+
+const User = new mongoose.model("User", userSchema);
+
+passport.use(User.createStrategy());
+
+passport.serializeUser(function (user, done) {
+  done(null, user._id);
+});
+passport.deserializeUser(function (user, done) {
+  User.findById(_id, function (err, user) {
+    done(err, user);
+  });
+});
+
+// connectDB();
 const Port = 5000;
 
 const Bookmark = bookmarkModel();
-const User = userModel();
+//const User = userModel();
 const Switch = switchModel();
 
-//AUTH
+// AUTH
 app.post("/register", (req, res) => {
-  register(req, res, User, bcrypt);
+  
 });
 
 app.post("/login", (req, res) => {
-  login(req, res, User, bcrypt);
+  
 });
 
-//APP
+// APP
 app
   .route("/bookmarks")
   .get((req, res) => {
@@ -62,7 +106,7 @@ app
     deleteBookmark(req, res, Bookmark, req.params.id);
   });
 
-//SWITCH
+// SWITCH
 app
   .route("/api/switch")
   .put((req, res) => {
