@@ -27,7 +27,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: ["http://localhost:3000", "https://flavorite.vercel.app/"],
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
   })
@@ -45,6 +45,7 @@ app.use(
     resave: true,
     saveUninitialized: true,
     cookie: {
+      secure: true,
       maxAge: 1000 * 60 * 60 * 24,
     },
   })
