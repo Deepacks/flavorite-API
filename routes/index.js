@@ -44,9 +44,9 @@ router.post("/api/login", isUser, (req, res, next) => {
   })(req, res, next);
 });
 
-router.get("/logout", (req, res) => {
+router.get("/api/logout", (req, res) => {
   req.logOut();
-  res.send();
+  res.send({ status: 200 });
 });
 
 // -------------- <BOOKMARKS> --------------
@@ -55,7 +55,6 @@ router
   .route("/bookmarks")
 
   .get(isAuth, (req, res) => {
-    console.log("bookmarks: " + res.session);
     Bookmark.find({})
       .then((bookmarks) => {
         res.send(bookmarks);
