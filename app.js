@@ -65,5 +65,5 @@ app.use(routes);
 const port = 5000;
 
 app.listen(process.env.PORT || port, () => {
-  console.log("Server running on port " + port); // to change to heroku env port
+  console.log("Server running on port " + process.env.PORT);
 });
