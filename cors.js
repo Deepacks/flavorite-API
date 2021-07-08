@@ -11,8 +11,6 @@ const cors = (req, res, next) => {
   } else {
     next();
   }
-
-  next();
 };
 
 module.exports = cors;
