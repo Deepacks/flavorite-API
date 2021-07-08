@@ -6,6 +6,11 @@ const cors = (req, res, next) => {
     "Origin, X-Requested-With, Content-Type, Authorization, WWW-Authenticate, Cookie, Set-Cookie, Accept"
   );
   res.header("Access-Control-Allow-Methods", "GET,HEAD,PUT,PATCH,POST,DELETE");
+  res.header(
+    "Access-Control-Request-Headers",
+    "Origin, X-Requested-With, Content-Type, Authorization, WWW-Authenticate, Cookie, Set-Cookie, Accept"
+  );
+  res.header("Access-Control-Request-Method", "GET,HEAD,PUT,PATCH,POST,DELETE");
 
   next();
 };
